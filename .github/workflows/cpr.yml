@@ -13,4 +13,5 @@ jobs:
         id: extract_branch
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
-        branch: ${{ steps.extract_branch.outputs.branch }}
+        with:
+          branch: ${{ steps.extract_branch.outputs.branch }}
