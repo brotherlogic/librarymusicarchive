@@ -6,11 +6,13 @@ jobs:
   productionPromotion:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
+      - uses: actions/checkout@v3
+        with:
+          ref:${{ steps.extract_branch.outputs.branch }}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
