@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package lma;
+
+option go_package = "librarymusicarchive/proto";
+
+message Label {
+    // The readable name of the label
+    string name = 1;
+
+    // Discogs id of the label
+    int32 discogs_id = 2;
+}
+
+message Record {
+    // The name of the record
+    string title = 1;
+
+    // Id of the specific record on discogs
+    int32 discogs_id = 2;
+
+    // The label for this one
+    Label label = 3;
+}
+
+message Review {
+    string reviewer = 1;
+    Record record = 2;
+    repeated Rating ratings = 3;
+
+    string review = 4; // Must be 200 words
+}
+
+message Rating {
+    enum RatingType {
+        RATING_UNKNOWN = 0;
+        RATING_OVERALL = 1;          // Overall
+        RATING_PASTORAL = 2;         // Pastoral      
+        RATING_BEATS = 3;            // Beats
+        RATING_ONE_TRACK_FACTOR = 4; // OneTrack
+    }
+    RatingType type = 1;
+    float score = 2;  // 0.0 - 1.0
+}
